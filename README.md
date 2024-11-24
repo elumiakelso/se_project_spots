@@ -30,3 +30,7 @@ This is the third project of the Software Engineering program at TripleTen. It w
 This webpage is deployed to GitHub pages.
 
 - [Deployment link](https://elumiakelso.github.io/se_project_spots/)
+
+## Project video
+
+To come
