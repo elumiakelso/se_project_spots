@@ -1,21 +1,32 @@
-# Project 3: Spots
+# Spots
 
-### Overview  
+An image sharing site.
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+This is the third project of the Software Engineering program at TripleTen. It was created using HTML and CSS, and was designed to be responsive using flexbox, grid, and media queries. The project is based on the following Figma design file.
+
+**Figma**
+
+- [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
+
+## Project features
+
+- Semantic HTML5
+- CSS
+- Flexbox
+- Grid
+- Media queries for mobile
+- Text overflow
+- Flat BEM file structure
+- CSS transition animations (for buttons)
+
+**Images**
+
+![desktop demo](../se_project_spots/images/demo-screenshots/desktop-1440-screenshot.png)
+![tablet demo](../se_project_spots/images/demo-screenshots/tablet-880-screenshot.png)
+![mobile demo](../se_project_spots/images/demo-screenshots/mobile-320-screenshot.png)
+
+## Deployment
+
+This webpage is deployed to GitHub pages.
+
+- [Deployment link]()
