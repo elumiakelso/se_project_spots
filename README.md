@@ -21,12 +21,12 @@ This is the third project of the Software Engineering program at TripleTen. It w
 
 **Images**
 
-![desktop demo](../se_project_spots/images/demo-screenshots/desktop-1440-screenshot.png)
-![tablet demo](../se_project_spots/images/demo-screenshots/tablet-880-screenshot.png)
-![mobile demo](../se_project_spots/images/demo-screenshots/mobile-320-screenshot.png)
+![desktop demo](./images/demo-screenshots/desktop-1440-screenshot.png)
+![tablet demo](./images/demo-screenshots/tablet-880-screenshot.png)
+![mobile demo](./images/demo-screenshots/mobile-320-screenshot.png)
 
 ## Deployment
 
 This webpage is deployed to GitHub pages.
 
-- [Deployment link]()
+- [Deployment link](https://elumiakelso.github.io/se_project_spots/)
