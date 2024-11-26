@@ -33,4 +33,4 @@ This webpage is deployed to GitHub pages.
 
 ## Project video
 
-To come
+- [Project video link](https://drive.google.com/file/d/1PLgzotXI1Q1R920sthuE80Q9DyH_7IsY/view?usp=sharing)
