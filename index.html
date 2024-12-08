@@ -46,7 +46,22 @@
         </section>
         <section class="cards page__width">
           <ul role="list" class="cards__list">
-            <li role="listitem" class="card">
+            <template id="card-template">
+              <li role="listitem" class="card">
+                <img src="" alt="" class="card__image" />
+                <div class="card__contents">
+                  <h2 class="card__label"></h2>
+                  <button type="button" class="card__like-button">
+                    <img
+                      src="./images/like-icon.svg"
+                      alt="Like"
+                      class="card__like-button-icon"
+                    />
+                  </button>
+                </div>
+              </li>
+            </template>
+            <!-- <li role="listitem" class="card">
               <img
                 src="./images/1-photo-by-moritz-feldmann-from-pexels.jpg"
                 alt="Val Thorens"
@@ -149,7 +164,7 @@
                   />
                 </button>
               </div>
-            </li>
+            </li> -->
           </ul>
         </section>
       </main>
