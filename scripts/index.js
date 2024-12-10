@@ -33,8 +33,7 @@ const profileDescriptionElement = document.querySelector(
 );
 
 const profileModalElement = document.querySelector("#edit-modal");
-const profileFormElement = profileModalElement.querySelector(".modal__form");
-
+const profileFormElement = document.forms["profile-form"];
 const profileCloseButtonElement = profileModalElement.querySelector(
   ".modal__close-button"
 );
@@ -69,11 +68,9 @@ function openModal() {
   profileNameInput.value = profileNameElement.textContent;
   profileDescriptionInput.value = profileDescriptionElement.textContent;
   profileModalElement.classList.add("modal_opened");
-  profileModalElement.classList.remove("modal_closed");
 }
 
 function closeModal() {
-  profileModalElement.classList.add("modal_closed");
   profileModalElement.classList.remove("modal_opened");
 }
 

@@ -10,14 +10,11 @@
   align-items: center;
   justify-content: center;
   padding: 0 10px;
+  visibility: hidden;
 }
 
 .modal_opened {
   visibility: visible;
-}
-
-.modal_closed {
-  visibility: hidden;
 }
 
 .modal__container {
