@@ -163,7 +163,7 @@
   .modal__container_preview {
     background-color: transparent;
     padding: 0;
-    max-width: 80vw;
+    max-width: 288px;
   }
 
   .modal__close-button {
@@ -196,6 +196,10 @@
 
   .modal__submit-button {
     width: 100%;
+  }
+
+  .modal__image {
+    min-width: 288px;
   }
 
   .modal__caption {

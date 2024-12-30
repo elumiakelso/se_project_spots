@@ -64,11 +64,6 @@
   transition: color 0.2s;
 }
 
-/* .card__like-button-icon {
-  width: 23px;
-  height: 20px;
-} */
-
 .card__like-button:hover {
   opacity: 100%;
 }
@@ -103,9 +98,4 @@
     width: 20px;
     height: 18px;
   }
-
-  /* .card__like-button-icon {
-    width: 20px;
-    height: 18px;
-  } */
 }
