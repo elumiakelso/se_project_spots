@@ -48,15 +48,18 @@
           <ul role="list" class="cards__list">
             <template id="card-template">
               <li role="listitem" class="card">
-                <img src="" alt="" class="card__image" />
+                <div class="card__image-container">
+                  <img src="" alt="" class="card__image" />
+                  <button type="button" class="card__delete-button"></button>
+                </div>
                 <div class="card__contents">
                   <h2 class="card__label"></h2>
                   <button type="button" class="card__like-button">
-                    <img
+                    <!-- <img
                       src="./images/like-icon.svg"
                       alt="Like"
                       class="card__like-button-icon"
-                    />
+                    /> -->
                   </button>
                 </div>
               </li>
@@ -171,7 +174,12 @@
       <footer class="footer">
         <p class="footer__copyright">2024 © Spots</p>
       </footer>
-      <div id="edit-modal" class="modal modal_closed">
+      <div
+        id="edit-modal"
+        class="modal"
+        role="dialog"
+        aria-labelledby="edit-modal-title"
+      >
         <div class="modal__container">
           <button type="button" class="modal__close-button">
             <img
@@ -180,7 +188,7 @@
               class="modal__close-button-icon"
             />
           </button>
-          <h2 class="modal__title">Edit profile</h2>
+          <h2 id="edit-modal-title" class="modal__title">Edit profile</h2>
           <form id="profile-form" class="modal__form">
             <label for="name" class="modal__label">
               Name
@@ -204,6 +212,69 @@
             </label>
             <button type="submit" class="modal__submit-button">Save</button>
           </form>
+        </div>
+      </div>
+
+      <div
+        id="new-post-modal"
+        class="modal"
+        role="dialog"
+        aria-labelledby="new-post-modal-title"
+      >
+        <div class="modal__container">
+          <button type="button" class="modal__close-button">
+            <img
+              src="./images/modal-close-icon.svg"
+              alt="Close modal"
+              class="modal__close-button-icon"
+            />
+          </button>
+          <h2 id="new-post-modal-title" class="modal__title">New post</h2>
+          <form id="new-post-form" class="modal__form">
+            <label for="image-link" class="modal__label">
+              Image link
+              <input
+                type="url"
+                id="image-link"
+                name="image-link"
+                class="modal__input"
+                placeholder="Paste a link to the picture"
+              />
+            </label>
+            <label for="caption" class="modal__label">
+              Caption
+              <input
+                type="text"
+                id="caption"
+                name="caption"
+                class="modal__input"
+                placeholder="Type your caption"
+              />
+            </label>
+            <button type="submit" class="modal__submit-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="preview-modal"
+        class="modal"
+        role="dialog"
+        aria-label="image preview"
+      >
+        <div class="modal__container modal__container_preview">
+          <img src="" alt="" class="modal__image" />
+          <button
+            type="button"
+            class="modal__close-button modal__close-button_preview"
+          >
+            <img
+              src="./images/preview-modal-close-icon.svg"
+              alt="Close image preview"
+              class="modal__close-button-icon"
+            />
+          </button>
+          <p class="modal__caption"></p>
         </div>
       </div>
     </div>
