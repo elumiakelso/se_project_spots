@@ -29,6 +29,8 @@ const initialCards = [
   },
 ];
 
+const modalList = document.querySelectorAll(".modal");
+
 const profileButtonElement = document.querySelector(".profile__edit-button");
 const postButtonElement = document.querySelector(".profile__post-button");
 const profileNameElement = document.querySelector(".profile__name");
@@ -48,6 +50,9 @@ const profileDescriptionInput =
 
 const postModalElement = document.querySelector("#new-post-modal");
 const postFormElement = document.forms["new-post-form"];
+const postSubmitButton = postModalElement.querySelector(
+  ".modal__submit-button"
+);
 const postCloseButtonElement = postModalElement.querySelector(
   ".modal__close-button"
 );
@@ -104,12 +109,35 @@ initialCards.forEach((card) => {
   cardsListElement.append(cardElement);
 });
 
+let exampleOpenModal = undefined;
 function openModal(modal) {
+  exampleOpenModal = modal;
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeOnEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeOnEscape);
+}
+
+function setupCloseOnOverlayClick(modalList) {
+  modalList.forEach((modal) => {
+    modal.addEventListener("click", (evt) => {
+      if (evt.target === modal && modal.classList.contains("modal_opened")) {
+        closeModal(modal);
+      }
+    });
+  });
+}
+
+setupCloseOnOverlayClick(modalList);
+
+function closeOnEscape(evt) {
+  const openedModal = document.querySelector(".modal.modal_opened");
+  if ((evt.key === "Escape" || evt.keyCode === "27") && openedModal) {
+    closeModal(openedModal);
+  }
 }
 
 function handleProfileFormSubmit(evt) {
@@ -128,12 +156,19 @@ function handlePostFormSubmit(evt) {
   const cardElement = getCardElement(postInputValues);
   cardsListElement.prepend(cardElement);
   evt.target.reset();
+  disableButton(postSubmitButton, settings);
   closeModal(postModalElement);
 }
 
 profileButtonElement.addEventListener("click", () => {
   profileNameInput.value = profileNameElement.textContent;
   profileDescriptionInput.value = profileDescriptionElement.textContent;
+  //OPTIONAL
+  resetValidation(
+    profileFormElement,
+    [profileNameInput, profileDescriptionInput],
+    settings
+  );
   openModal(profileModalElement);
 });
 

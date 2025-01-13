@@ -54,13 +54,7 @@
                 </div>
                 <div class="card__contents">
                   <h2 class="card__label"></h2>
-                  <button type="button" class="card__like-button">
-                    <!-- <img
-                      src="./images/like-icon.svg"
-                      alt="Like"
-                      class="card__like-button-icon"
-                    /> -->
-                  </button>
+                  <button type="button" class="card__like-button"></button>
                 </div>
               </li>
             </template>
@@ -189,7 +183,7 @@
             />
           </button>
           <h2 id="edit-modal-title" class="modal__title">Edit profile</h2>
-          <form id="profile-form" class="modal__form">
+          <form id="profile-form" class="modal__form" novalidate>
             <label for="name" class="modal__label">
               Name
               <input
@@ -198,7 +192,11 @@
                 name="name"
                 class="modal__input"
                 placeholder="Type your name"
+                minlength="2"
+                maxlength="40"
+                required
               />
+              <span id="name-error" class="modal__error"></span>
             </label>
             <label for="description" class="modal__label">
               Description
@@ -208,7 +206,11 @@
                 name="description"
                 class="modal__input"
                 placeholder="Describe yourself"
+                minlength="2"
+                maxlength="200"
+                required
               />
+              <span id="description-error" class="modal__error"></span>
             </label>
             <button type="submit" class="modal__submit-button">Save</button>
           </form>
@@ -230,7 +232,7 @@
             />
           </button>
           <h2 id="new-post-modal-title" class="modal__title">New post</h2>
-          <form id="new-post-form" class="modal__form">
+          <form id="new-post-form" class="modal__form" novalidate>
             <label for="image-link" class="modal__label">
               Image link
               <input
@@ -239,7 +241,9 @@
                 name="image-link"
                 class="modal__input"
                 placeholder="Paste a link to the picture"
+                required
               />
+              <span id="image-link-error" class="modal__error"></span>
             </label>
             <label for="caption" class="modal__label">
               Caption
@@ -249,7 +253,11 @@
                 name="caption"
                 class="modal__input"
                 placeholder="Type your caption"
+                minlength="2"
+                maxlength="30"
+                required
               />
+              <span id="caption-error" class="modal__error"></span>
             </label>
             <button type="submit" class="modal__submit-button">Save</button>
           </form>
@@ -278,6 +286,7 @@
         </div>
       </div>
     </div>
+    <script src="./scripts/validation.js" defer></script>
     <script src="./scripts/index.js" defer></script>
   </body>
 </html>
