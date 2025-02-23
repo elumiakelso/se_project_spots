@@ -152,6 +152,7 @@
   }
 
   .profile__avatar-button {
+    display: inline;
     visibility: visible;
     width: 23.34px;
     height: 23.34px;
@@ -163,9 +164,10 @@
     background-color: rgba(33, 33, 33, 0.6);
   }
 
-  .profile__avatar-container:hover {
-    width: 100%;
-    height: 100%;
+  .profile__avatar-container:hover .profile__avatar-button {
+    width: 23.34px;
+    height: 23.34px;
+    border-radius: 6px;
   }
 
   .profile__avatar-button::after {

@@ -43,7 +43,8 @@ import Api from "../utils/Api.js";
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "2adde17f-b396-4bac-b466-9e32780c9b81",
+    // authorization: "62e54e26-8fd2-4338-a021-e8177a2d325f", // Placeholder
+    authorization: "2adde17f-b396-4bac-b466-9e32780c9b81", // Bessie
     "Content-Type": "application/json",
   },
 });
@@ -52,14 +53,27 @@ const api = new Api({
 
 api
   .getAppInfo()
-  .then(([cards]) => {
+  .then(([userinfo, cards]) => {
+    console.log(`Userinfo: ${userinfo}`);
+    console.log(`Cards: ${cards}`);
     cards.forEach((card) => {
       const cardElement = getCardElement(card);
       cardsListElement.append(cardElement);
     });
     //handle the user's info
+    console.log(userinfo.name);
+    console.log(userinfo.about);
+    console.log(userinfo.avatar);
+
     //set src of the avatar image
     //set text content of both text elements
+    profileNameElement.textContent = userinfo.name;
+    profileDescriptionElement.textContent = userinfo.about;
+    // TODO - revert to the stored link instead of this test image
+    // const tempimage =
+    //   "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg";
+    // avatarImageElement.src = tempimage;
+    avatarImageElement.src = userinfo.avatar;
   })
   .catch((err) => {
     console.error(err);
@@ -76,6 +90,7 @@ const avatarCloseButtonElement = avatarModalElement.querySelector(
   ".modal__close-button"
 );
 const avatarLinkInput = avatarModalElement.querySelector("#avatar-link");
+const avatarImageElement = document.querySelector(".profile__avatar");
 
 const profileButtonElement = document.querySelector(".profile__edit-button");
 const postButtonElement = document.querySelector(".profile__post-button");
@@ -106,6 +121,12 @@ const postCloseButtonElement = postModalElement.querySelector(
 
 const deleteModalElement = document.querySelector("#delete-modal");
 const deleteFormElement = document.forms["delete-form"];
+const deleteCloseButtonElement = deleteModalElement.querySelector(
+  ".modal__close-button"
+);
+const deleteCancelButtonElement = deleteModalElement.querySelector(
+  ".modal__submit-button_type_cancel"
+);
 
 const postLinkInput = postModalElement.querySelector("#image-link");
 const postCaptionInput = postModalElement.querySelector("#caption");
@@ -147,6 +168,7 @@ function getCardElement(data) {
 
   cardNameElement.textContent = data.name;
   cardImageElement.src = data.link;
+  // console.log(`Card link: ${data.link}`);
   cardImageElement.alt = data.name;
 
   // cardLikeButtonElement.addEventListener("click", () => {
@@ -173,9 +195,9 @@ function getCardElement(data) {
   return cardElement;
 }
 
-let exampleOpenModal = undefined;
+// let exampleOpenModal = undefined;
 function openModal(modal) {
-  exampleOpenModal = modal;
+  // exampleOpenModal = modal;
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeOnEscape);
 }
@@ -213,8 +235,8 @@ function handleProfileFormSubmit(evt) {
     })
     .then((data) => {
       //TODO use data arg instead of input values
-      profileNameElement.textContent = profileNameInput.value;
-      profileDescriptionElement.textContent = profileDescriptionInput.value;
+      profileNameElement.textContent = data.value;
+      profileDescriptionElement.textContent = data.value;
       closeModal(profileModalElement);
     })
     .catch((err) => {
@@ -224,15 +246,22 @@ function handleProfileFormSubmit(evt) {
 
 function handlePostFormSubmit(evt) {
   evt.preventDefault();
-  const postInputValues = {
-    name: postCaptionInput.value,
-    link: postLinkInput.value,
-  };
-  const cardElement = getCardElement(postInputValues);
-  cardsListElement.prepend(cardElement);
-  evt.target.reset();
-  disableButton(postSubmitButton, settings);
-  closeModal(postModalElement);
+  api
+    .addCard({ name: postCaptionInput.value, link: postLinkInput.value })
+    .then(() => {
+      const postInputValues = {
+        name: postCaptionInput.value,
+        link: postLinkInput.value,
+      };
+      const cardElement = getCardElement(postInputValues);
+      cardsListElement.prepend(cardElement);
+      evt.target.reset();
+      disableButton(postSubmitButton, settings);
+      closeModal(postModalElement);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function handleAvatarFormSubmit(evt) {
@@ -245,6 +274,7 @@ function handleAvatarFormSubmit(evt) {
     .then((data) => {
       console.log(data.avatar);
       //TODO - set new avatar element with src of the avatar
+      avatarImageElement.src = data.avatar;
     })
     .catch((err) => {
       console.error(err);
@@ -298,6 +328,14 @@ postCloseButtonElement.addEventListener("click", () => {
 
 previewCloseButtonElement.addEventListener("click", () => {
   closeModal(previewModalElement);
+});
+
+deleteCloseButtonElement.addEventListener("click", () => {
+  closeModal(deleteModalElement);
+});
+
+deleteCancelButtonElement.addEventListener("click", () => {
+  closeModal(deleteModalElement);
 });
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);

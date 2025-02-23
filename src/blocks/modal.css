@@ -98,6 +98,14 @@
   text-align: center;
 }
 
+.modal__button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 32px;
+  gap: 20px;
+}
+
 .modal__label {
   font-weight: 500;
   color: rgba(33, 33, 33, 0.7);
@@ -252,8 +260,16 @@
     color: #212121;
     font-size: 20px;
     line-height: 24px;
-    margin: 0 auto;
+    margin: 0;
     width: 276px;
+  }
+
+  .modal__button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 12px;
   }
 
   .modal__label {
@@ -276,12 +292,13 @@
   .modal__submit-button_type_delete-card {
     width: 156px;
     height: 52px;
-    margin: 20px auto 0;
+    margin: 0 auto;
   }
 
   .modal__submit-button_type_cancel {
     width: 156px;
     height: 52px;
+    margin: 0 auto;
   }
 
   .modal__image {
