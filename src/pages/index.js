@@ -16,7 +16,7 @@ const api = new Api({
   headers: {
     authorization: "62e54e26-8fd2-4338-a021-e8177a2d325f", // Placeholder
     // authorization: "2adde17f-b396-4bac-b466-9e32780c9b81", // Bessie
-    // "Content-Type": "application/json",
+    "Content-Type": "application/json",
   },
 });
 
@@ -241,6 +241,7 @@ function handleAvatarFormSubmit(evt) {
     .editAvatarInfo(avatarLinkInput.value)
     .then((data) => {
       avatarImageElement.src = data.avatar;
+      closeModal(avatarModalElement);
     })
     .catch((err) => {
       console.error(err);

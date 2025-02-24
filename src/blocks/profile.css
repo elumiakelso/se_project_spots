@@ -7,6 +7,7 @@
 
 .profile__avatar-container {
   position: relative;
+  height: 190px;
 }
 
 .profile__avatar-button {
@@ -148,6 +149,10 @@
     max-width: 288px;
     padding-top: 20px;
     gap: 12px;
+  }
+
+  .profile__avatar-container {
+    height: 80px;
   }
 
   .profile__avatar-button {
