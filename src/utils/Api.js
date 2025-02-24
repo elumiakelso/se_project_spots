@@ -5,8 +5,6 @@ class Api {
   }
 
   getAppInfo() {
-    //TODO call getUser Info in this array
-    // return Promise.all([this.getInitialCards()]);
     return Promise.all([
       new Promise((resolve) => {
         resolve(this.getUserInfo());
@@ -15,28 +13,6 @@ class Api {
         resolve(this.getInitialCards());
       }),
     ]);
-  }
-
-  // Create another method, getUser Info,
-  // can use getInitialCards word for word mostly, different base url
-
-  _get(endpoint) {
-    return fetch(`${this._baseUrl}/${endpoint}`, {
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      Promise.reject(`Error: ${res.status}`);
-    });
-  }
-
-  getUserInfo2() {
-    return this._get("users/me");
-  }
-
-  getInitialCards2() {
-    return this._get("cards");
   }
 
   getUserInfo() {
@@ -85,6 +61,19 @@ class Api {
         name,
         about,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  changeLikeStatus(id, isLiked) {
+    const method = isLiked ? "DELETE" : "PUT";
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: method,
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();

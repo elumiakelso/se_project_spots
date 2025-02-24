@@ -7,7 +7,6 @@
 
 .profile__avatar-container {
   position: relative;
-  /* TODO, move margin from avatar image to container */
 }
 
 .profile__avatar-button {

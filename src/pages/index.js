@@ -9,70 +9,26 @@ import {
 
 import Api from "../utils/Api.js";
 
-// const initialCards = [
-//   {
-//     name: "Golden Gate bridge",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-//   },
-//   {
-//     name: "Val Thorens",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-//   {
-//     name: "Restaurant terrace",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-//   },
-//   {
-//     name: "An outdoor cafe",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-//   },
-//   {
-//     name: "A very long bridge, over the forest and through the trees",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-//   },
-//   {
-//     name: "Tunnel with morning light",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-//   },
-//   {
-//     name: "Mountain house",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-// ];
+import { setButtonText } from "../utils/helpers.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    // authorization: "62e54e26-8fd2-4338-a021-e8177a2d325f", // Placeholder
-    authorization: "2adde17f-b396-4bac-b466-9e32780c9b81", // Bessie
-    "Content-Type": "application/json",
+    authorization: "62e54e26-8fd2-4338-a021-e8177a2d325f", // Placeholder
+    // authorization: "2adde17f-b396-4bac-b466-9e32780c9b81", // Bessie
+    // "Content-Type": "application/json",
   },
 });
-
-//desctructure the 2nd item in the callback of .then
 
 api
   .getAppInfo()
   .then(([userinfo, cards]) => {
-    console.log(`Userinfo: ${userinfo}`);
-    console.log(`Cards: ${cards}`);
     cards.forEach((card) => {
       const cardElement = getCardElement(card);
       cardsListElement.append(cardElement);
     });
-    //handle the user's info
-    console.log(userinfo.name);
-    console.log(userinfo.about);
-    console.log(userinfo.avatar);
-
-    //set src of the avatar image
-    //set text content of both text elements
     profileNameElement.textContent = userinfo.name;
     profileDescriptionElement.textContent = userinfo.about;
-    // TODO - revert to the stored link instead of this test image
-    // const tempimage =
-    //   "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg";
-    // avatarImageElement.src = tempimage;
     avatarImageElement.src = userinfo.avatar;
   })
   .catch((err) => {
@@ -151,8 +107,20 @@ function handleDeleteCard(cardElement, cardId) {
   openModal(deleteModalElement);
 }
 
-function handleLike(evt) {
-  evt.target.classList.toggle("card__like-button_liked");
+function handleLike(evt, id) {
+  const likeButtonElement = evt.target;
+  const isLiked = likeButtonElement.classList.contains(
+    "card__like-button_liked"
+  );
+
+  api
+    .changeLikeStatus(id, isLiked)
+    .then((data) => {
+      likeButtonElement.classList.toggle("card__like-button_liked");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function getCardElement(data) {
@@ -168,18 +136,15 @@ function getCardElement(data) {
 
   cardNameElement.textContent = data.name;
   cardImageElement.src = data.link;
-  // console.log(`Card link: ${data.link}`);
   cardImageElement.alt = data.name;
 
-  // cardLikeButtonElement.addEventListener("click", () => {
-  //   cardLikeButtonElement.classList.toggle("card__like-button_liked");
-  // });
+  if (data.isLiked) {
+    cardLikeButtonElement.classList.add("card__like-button_liked");
+  }
 
-  cardLikeButtonElement.addEventListener("click", handleLike);
-
-  // cardDeleteButtonElement.addEventListener("click", () => {
-  //   cardElement.remove();
-  // });
+  cardLikeButtonElement.addEventListener("click", (evt) =>
+    handleLike(evt, data._id)
+  );
 
   cardDeleteButtonElement.addEventListener("click", (evt) =>
     handleDeleteCard(cardElement, data._id)
@@ -195,9 +160,7 @@ function getCardElement(data) {
   return cardElement;
 }
 
-// let exampleOpenModal = undefined;
 function openModal(modal) {
-  // exampleOpenModal = modal;
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeOnEscape);
 }
@@ -228,32 +191,34 @@ function closeOnEscape(evt) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  const submitButton = evt.submitter;
+  setButtonText(submitButton, true, "Save", "Saving...");
   api
     .editUserInfo({
       name: profileNameInput.value,
       about: profileDescriptionInput.value,
     })
     .then((data) => {
-      //TODO use data arg instead of input values
-      profileNameElement.textContent = data.value;
-      profileDescriptionElement.textContent = data.value;
+      profileNameElement.textContent = data.name;
+      profileDescriptionElement.textContent = data.about;
       closeModal(profileModalElement);
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(submitButton, false, "Save", "Saving...");
     });
 }
 
 function handlePostFormSubmit(evt) {
   evt.preventDefault();
+  const submitButton = evt.submitter;
+  setButtonText(submitButton, true, "Save", "Saving...");
   api
     .addCard({ name: postCaptionInput.value, link: postLinkInput.value })
-    .then(() => {
-      const postInputValues = {
-        name: postCaptionInput.value,
-        link: postLinkInput.value,
-      };
-      const cardElement = getCardElement(postInputValues);
+    .then((data) => {
+      const cardElement = getCardElement(data);
       cardsListElement.prepend(cardElement);
       evt.target.reset();
       disableButton(postSubmitButton, settings);
@@ -261,43 +226,51 @@ function handlePostFormSubmit(evt) {
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(submitButton, false, "Save", "Saving...");
     });
 }
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
-
-  console.log(avatarLinkInput.value);
+  const submitButton = evt.submitter;
+  setButtonText(submitButton, true, "Save", "Saving...");
 
   api
     .editAvatarInfo(avatarLinkInput.value)
     .then((data) => {
-      console.log(data.avatar);
-      //TODO - set new avatar element with src of the avatar
       avatarImageElement.src = data.avatar;
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(submitButton, false, "Save", "Saving...");
     });
 }
 
 function handleDeleteFormSubmit(evt) {
   evt.preventDefault();
+  const submitButton = evt.submitter;
+  setButtonText(submitButton, true, "Delete", "Deleting...");
   api
     .removeCard(selectedCardId)
     .then(() => {
-      // remove the card from the DOM
-      // close the modal
+      selectedCard.remove();
+      closeModal(deleteModalElement);
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(submitButton, false, "Delete", "Deleting...");
     });
 }
 
 profileButtonElement.addEventListener("click", () => {
   profileNameInput.value = profileNameElement.textContent;
   profileDescriptionInput.value = profileDescriptionElement.textContent;
-  //OPTIONAL
   resetValidation(
     profileFormElement,
     [profileNameInput, profileDescriptionInput],
