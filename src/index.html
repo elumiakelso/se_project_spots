@@ -11,26 +11,38 @@
     />
     <title>Bessie Coleman | Spots</title>
     <link rel="shortcut icon" href="./favicon.ico" />
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spot logo" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spot logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__width">
-          <img
-            src="./images/avatar.jpg"
-            alt="Bessie Coleman"
-            class="profile__avatar"
-          />
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-button">
+              <img
+                src="<%=require('./images/avatar-profile-icon.svg')%>"
+                alt="Edit avatar icon"
+                class="profile__avatar-icon"
+              />
+            </button>
+            <img
+              src="<%=require('./images/avatar.jpg')%>"
+              alt="Bessie Coleman"
+              class="profile__avatar"
+            />
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
             <button type="button" class="profile__edit-button">
               <img
-                src="./images/edit-icon.svg"
+                src="<%=require('./images/edit-icon.svg')%>"
                 alt="Edit icon"
                 class="profile__edit-button-icon"
               />Edit Profile
@@ -38,7 +50,7 @@
           </div>
           <button type="button" class="profile__post-button">
             <img
-              src="./images/add-post-icon.svg"
+              src="<%=require('./images/add-post-icon.svg')%>"
               alt="New post icon"
               class="profile__post-button-icon"
             />New Post
@@ -58,110 +70,6 @@
                 </div>
               </li>
             </template>
-            <!-- <li role="listitem" class="card">
-              <img
-                src="./images/1-photo-by-moritz-feldmann-from-pexels.jpg"
-                alt="Val Thorens"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">Val Thorens</h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li>
-            <li role="listitem" class="card">
-              <img
-                src="./images/2-photo-by-ceiline-from-pexels-compressed.jpg"
-                alt="Restaurant terrace"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">Restaurant terrace</h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like icon"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li>
-            <li role="listitem" class="card">
-              <img
-                src="./images/3-photo-by-tubanur-dogan-from-pexels.jpg"
-                alt="An outdoor cafe"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">An outdoor cafe</h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like icon"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li>
-            <li role="listitem" class="card">
-              <img
-                src="./images/4-photo-by-maurice-laschet-from-pexels-compressed.jpg"
-                alt="A very long bridge, over the forest"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">
-                  A very long bridge, over the forest...
-                </h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like icon"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li>
-            <li role="listitem" class="card">
-              <img
-                src="./images/5-photo-by-van-anh-nguyen-from-pexels-compressed.jpg"
-                alt="Tunnel with morning light"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">Tunnel with morning light</h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like icon"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li>
-            <li role="listitem" class="card">
-              <img
-                src="./images/6-photo-by-moritz-feldmann-from-pexels-compressed.jpg"
-                alt="Mountain house"
-                class="card__image"
-              />
-              <div class="card__contents">
-                <h2 class="card__label">Mountain house</h2>
-                <button type="button" class="card__like-button">
-                  <img
-                    src="./images/like-icon.svg"
-                    alt="Like icon"
-                    class="card__like-button-icon"
-                  />
-                </button>
-              </div>
-            </li> -->
           </ul>
         </section>
       </main>
@@ -177,7 +85,7 @@
         <div class="modal__container">
           <button type="button" class="modal__close-button">
             <img
-              src="./images/modal-close-icon.svg"
+              src="<%=require('./images/modal-close-icon.svg')%>"
               alt="Close modal"
               class="modal__close-button-icon"
             />
@@ -226,7 +134,7 @@
         <div class="modal__container">
           <button type="button" class="modal__close-button">
             <img
-              src="./images/modal-close-icon.svg"
+              src="<%=require('./images/modal-close-icon.svg')%>"
               alt="Close modal"
               class="modal__close-button-icon"
             />
@@ -277,7 +185,7 @@
             class="modal__close-button modal__close-button_preview"
           >
             <img
-              src="./images/preview-modal-close-icon.svg"
+              src="<%=require('./images/preview-modal-close-icon.svg')%>"
               alt="Close image preview"
               class="modal__close-button-icon"
             />
@@ -285,8 +193,83 @@
           <p class="modal__caption"></p>
         </div>
       </div>
+
+      <div
+        id="avatar-modal"
+        class="modal"
+        role="dialog"
+        aria-labelledby="edit-avatar-title"
+      >
+        <div class="modal__container">
+          <button type="button" class="modal__close-button">
+            <img
+              src="<%=require('./images/modal-close-icon.svg')%>"
+              alt="Close modal"
+              class="modal__close-button-icon"
+            />
+          </button>
+          <h2 id="edit-avatar-title" class="modal__title">
+            Edit profile avatar
+          </h2>
+          <form id="avatar-form" class="modal__form" novalidate>
+            <label for="avatar-link" class="modal__label">
+              Profile Picture
+              <input
+                type="url"
+                id="avatar-link"
+                name="avatar-link"
+                class="modal__input"
+                placeholder="Paste the link to an image"
+                required
+              />
+              <span id="avatar-link-error" class="modal__error"></span>
+            </label>
+            <button type="submit" class="modal__submit-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="delete-modal"
+        class="modal"
+        role="dialog"
+        aria-labelledby="delete-modal-title"
+      >
+        <div class="modal__container modal__container_delete-card">
+          <button
+            type="button"
+            class="modal__close-button modal__close-button_delete-card"
+          >
+            <img
+              src="<%=require('./images/preview-modal-close-icon.svg')%>"
+              alt="Close modal"
+              class="modal__close-button-icon"
+            />
+          </button>
+          <h2
+            id="delete-modal-title"
+            class="modal__title modal__title_delete-card"
+          >
+            Are you sure you want to delete this image?
+          </h2>
+          <form id="delete-form" class="modal__form" novalidate>
+            <div class="modal__button-container">
+              <button
+                type="submit"
+                class="modal__submit-button modal__submit-button_type_delete-card"
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                class="modal__submit-button modal__submit-button_type_cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <script src="./scripts/validation.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
